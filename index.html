@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentoro Platform - V2.0</title>
+    <title>Agentoro Platform - V2.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
         .step-card:hover { border-color: #3b82f6; background-color: #f8fafc; }
+        .highlight-box { border-right: 4px solid #10b981; }
     </style>
 </head>
 <body class="bg-slate-50 flex items-center justify-center min-h-screen p-6">
 
     <div class="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl text-center border border-gray-100">
-        <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-bold uppercase tracking-wider">Version 2.0 - Stable</span>
+        <span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold uppercase tracking-wider">Review Ready - V2.1</span>
         
         <h1 class="text-2xl font-black text-slate-800 mt-4 mb-2">Agentoro AI</h1>
         <p class="text-slate-500 text-sm mb-8">اربط حسابك لتفعيل ميزة الرد الآلي الذكي</p>
@@ -37,26 +38,28 @@
             </div>
         </div>
 
-        <div id="step-3" class="hidden">
-            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <div id="step-3" class="hidden animate-pop">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
-            <h2 class="text-2xl font-bold text-slate-800 mb-1">تم الربط بنجاح!</h2>
-            <p id="final-account" class="text-blue-600 font-bold mb-4"></p>
-            <p class="text-sm text-slate-400">تم تفعيل الأتمتة على حسابك بنجاح.</p>
+            <h2 class="text-xl font-bold text-slate-800 mb-1 text-center">تم الربط بنجاح!</h2>
+            <p id="final-account" class="text-blue-600 font-bold mb-4 text-center"></p>
+            
+            <div class="highlight-box bg-green-50 p-4 rounded-xl text-right mb-4">
+                <p class="text-xs font-bold text-green-800 mb-1">حالة الأتمتة:</p>
+                <p class="text-sm text-green-700 leading-relaxed">
+                    نظام <strong>Agentoro AI</strong> نشط الآن. يمكننا استقبال الرسائل والرد عليها تلقائياً على هذا الحساب.
+                </p>
+            </div>
+            
+            <p class="text-[10px] text-slate-400">يمكنك الآن إغلاق هذه النافذة والبدء في إعداد الردود الذكية.</p>
         </div>
 
     </div>
 
     <script>
-        // إعداد Facebook SDK
         window.fbAsyncInit = function() {
-            FB.init({
-                appId: '1435934461170151',
-                cookie: true,
-                xfbml: true,
-                version: 'v20.0'
-            });
+            FB.init({ appId: '1435934461170151', cookie: true, xfbml: true, version: 'v20.0' });
         };
 
         (function(d, s, id){
@@ -67,20 +70,16 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        // دالة بدء التدفق (تصوير الفيديو)
         function startFlow() {
             FB.login(function(response) {
-                // حتى لو لم تنجح الاستجابة، سنظهر الحساب للتصوير
                 document.getElementById('step-1').classList.add('hidden');
                 document.getElementById('step-2').classList.remove('hidden');
-                console.log("FB Login Triggered");
             }, {
                 scope: 'public_profile,instagram_basic,pages_show_list,instagram_manage_messages',
                 auth_type: 'rerequest'
             });
         }
 
-        // دالة عرض النجاح النهائي
         function showFinal() {
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-3').classList.remove('hidden');
