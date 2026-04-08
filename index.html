@@ -1,89 +1,123 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentoro Platform - V2.1</title>
+    <title>Agentoro AI | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .step-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
-        .step-card:hover { border-color: #3b82f6; background-color: #f8fafc; }
-        .highlight-box { border-right: 4px solid #10b981; }
+        .chat-bg { background-color: #f0f2f5; }
+        .agent-msg { background-color: #0084ff; color: white; border-radius: 15px 15px 0 15px; }
+        .user-msg { background-color: #e4e6eb; color: black; border-radius: 15px 15px 15px 0; }
     </style>
 </head>
-<body class="bg-slate-50 flex items-center justify-center min-h-screen p-6">
+<body class="bg-slate-50 font-sans text-slate-900">
 
-    <div class="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl text-center border border-gray-100">
-        <span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold uppercase tracking-wider">Review Ready - V2.1</span>
-        
-        <h1 class="text-2xl font-black text-slate-800 mt-4 mb-2">Agentoro AI</h1>
-        <p class="text-slate-500 text-sm mb-8">اربط حسابك لتفعيل ميزة الرد الآلي الذكي</p>
-
-        <div id="step-1">
-            <button onclick="startFlow()" class="w-full bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg transition-transform active:scale-95">
-                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Connect with Facebook
+    <div id="login-screen" class="flex flex-col items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-96 text-center border border-slate-100">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">Agentoro AI</h1>
+            <p class="text-slate-500 mb-8">Connect your business to AI Automation</p>
+            <button onclick="showStep2()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                <i class="fab fa-facebook"></i> Continue with Facebook
             </button>
+            <p class="mt-4 text-xs text-slate-400">By connecting, you agree to our Terms of Service.</p>
         </div>
+    </div>
 
-        <div id="step-2" class="hidden">
-            <h2 class="text-lg font-bold text-slate-700 mb-4 text-right">اختر حساب Instagram:</h2>
-            <div onclick="showFinal()" class="step-card p-4 rounded-2xl flex items-center gap-4 cursor-pointer">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 to-purple-600 flex items-center justify-center text-white font-bold shadow-md">IG</div>
-                <div class="flex-1 text-right">
-                    <p class="font-bold text-slate-800">amira_ojj</p>
-                    <p class="text-xs text-slate-400">Instagram Professional</p>
+    <div id="step-2" class="hidden flex flex-col items-center justify-center min-h-screen">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
+            <h2 class="text-xl font-bold mb-4">Select Instagram Account</h2>
+            <div class="space-y-3">
+                <div onclick="showDashboard()" class="flex items-center justify-between p-4 border rounded-xl hover:bg-blue-50 cursor-pointer transition">
+                    <div class="flex items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Amira+OJJ&background=random" class="w-10 h-10 rounded-full">
+                        <div>
+                            <p class="font-bold">amira_ojj</p>
+                            <p class="text-xs text-slate-500">Instagram Business</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-slate-300"></i>
                 </div>
-                <div class="text-blue-500 font-bold text-sm">اختيار</div>
             </div>
         </div>
+    </div>
 
-        <div id="step-3" class="hidden animate-pop">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <div id="dashboard" class="hidden min-h-screen flex flex-col">
+        <nav class="bg-white border-b px-6 py-4 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-2">
+                <span class="bg-blue-600 text-white p-2 rounded-lg font-bold">A</span>
+                <span class="font-bold text-xl tracking-tight">Agentoro <span class="text-blue-600">AI</span></span>
             </div>
-            <h2 class="text-xl font-bold text-slate-800 mb-1 text-center">تم الربط بنجاح!</h2>
-            <p id="final-account" class="text-blue-600 font-bold mb-4 text-center"></p>
-            
-            <div class="highlight-box bg-green-50 p-4 rounded-xl text-right mb-4">
-                <p class="text-xs font-bold text-green-800 mb-1">حالة الأتمتة:</p>
-                <p class="text-sm text-green-700 leading-relaxed">
-                    نظام <strong>Agentoro AI</strong> نشط الآن. يمكننا استقبال الرسائل والرد عليها تلقائياً على هذا الحساب.
-                </p>
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-2 text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Connected: amira_ojj
+                </span>
             </div>
-            
-            <p class="text-[10px] text-slate-400">يمكنك الآن إغلاق هذه النافذة والبدء في إعداد الردود الذكية.</p>
-        </div>
+        </nav>
 
+        <main class="flex-1 flex overflow-hidden">
+            <aside class="w-64 bg-white border-r hidden md:block">
+                <div class="p-4 space-y-2">
+                    <div class="bg-blue-50 text-blue-600 p-3 rounded-lg font-medium">
+                        <i class="fas fa-comments mr-2"></i> Live Chat
+                    </div>
+                    <div class="text-slate-600 p-3 rounded-lg hover:bg-slate-50">
+                        <i class="fas fa-robot mr-2"></i> AI Settings
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-1 flex flex-col bg-slate-100">
+                <div id="chat-window" class="flex-1 p-6 overflow-y-auto space-y-4">
+                    <div class="flex justify-start">
+                        <div class="user-msg p-3 max-w-xs shadow-sm">
+                            Hi, is this agentoro? I want to automate my shop.
+                        </div>
+                    </div>
+                    <div id="ai-response" class="hidden flex justify-end">
+                        <div class="agent-msg p-3 max-w-xs shadow-sm">
+                            Hello! Yes, Agentoro AI is here. I can handle your Instagram orders automatically. Would you like to see a demo?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white border-t">
+                    <div class="flex gap-2">
+                        <input id="test-msg" type="text" placeholder="Type a message to test AI..." class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="simulateAI()" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition">
+                            Send
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-2 text-center text-uppercase">Demonstration Mode: Simulating API response via instagram_business_manage_messages</p>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({ appId: '1435934461170151', cookie: true, xfbml: true, version: 'v20.0' });
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        function startFlow() {
-            FB.login(function(response) {
-                document.getElementById('step-1').classList.add('hidden');
-                document.getElementById('step-2').classList.remove('hidden');
-            }, {
-                scope: 'public_profile,instagram_basic,pages_show_list,instagram_manage_messages',
-                auth_type: 'rerequest'
-            });
+        function showStep2() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
         }
 
-        function showFinal() {
+        function showDashboard() {
             document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-3').classList.remove('hidden');
-            document.getElementById('final-account').innerText = "@amira_ojj";
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        function simulateAI() {
+            const input = document.getElementById('test-msg');
+            if (input.value.trim() === "") return;
+
+            // Clear input and show AI response after delay
+            input.value = "";
+            setTimeout(() => {
+                document.getElementById('ai-response').classList.remove('hidden');
+                // Auto scroll to bottom
+                const chatWin = document.getElementById('chat-window');
+                chatWin.scrollTop = chatWin.scrollHeight;
+            }, 800);
         }
     </script>
 </body>
